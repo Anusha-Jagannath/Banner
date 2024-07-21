@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
+import com.denzcoskun.imageslider.models.SlideModel
 import com.example.bannerviewpager.adapter.BannerViewPagerAdapter
 import com.example.bannerviewpager.databinding.ActivityMainBinding
 import com.example.bannerviewpager.model.ImageItem
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var dots: Array<ImageView>
     private lateinit var params: LinearLayout.LayoutParams
     private lateinit var handler: Handler
+    val imageList = ArrayList<SlideModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -35,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         imagesList = arrayListOf()
         handler = Handler(Looper.getMainLooper())
         getData()
+        getSliderData()
         setUpAdapter()
         createDots()
         initClickListeners()
@@ -120,5 +123,13 @@ class MainActivity : AppCompatActivity() {
         val recyclerview = binding.viewPager.getChildAt(0) as RecyclerView
         recyclerview.clipToPadding = false
         recyclerview.setPadding(60, 0, 60, 0)
+    }
+
+    private fun getSliderData() {
+        imageList.add(SlideModel("https://bit.ly/2YoJ77H", "The animal population decreased by 58 percent in 42 years."))
+        imageList.add(SlideModel("https://bit.ly/2BteuF2", "Elephants and tigers may become extinct."))
+        imageList.add(SlideModel("https://bit.ly/3fLJf72", "And people do that."))
+        binding.imageSlider.setImageList(imageList)
+        binding.imageSlider.startSliding(3000)
     }
 }
